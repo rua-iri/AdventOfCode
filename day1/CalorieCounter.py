@@ -5,14 +5,12 @@
 with open("./input.txt", "r") as inputFile:
     calData = inputFile.readlines()
 
-
 #create new list for each elf and a variable for the ammount of calories they are carrying
 elfList = []
 calsCarried = 0
 
 #iterate through each line of the file
 for ln in calData:
-
     #add up the calories for each elf and separate them on each newline
     if ln=="\n":
         elfList.append(calsCarried)
@@ -21,9 +19,7 @@ for ln in calData:
         calsCarried += int(ln)
 
 
-
 #iterate through each elf and find which is carrying the most calories
-
 mostCalories = 0
 strongestElf = 0
 
@@ -33,5 +29,15 @@ for i in range(len(elfList)):
         strongestElf = i
 
 
+print("\nPart 1 Solutions")
 print(strongestElf)
 print(mostCalories)
+
+
+#sort the list of elves and take the three highest values
+strongestElves = sorted(elfList)[-3:]
+mostestCalories = sum(strongestElves)
+
+print("\nPart 2 Solutions")
+print(strongestElves)
+print(mostestCalories)
