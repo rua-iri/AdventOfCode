@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.BufferedReader;
 
@@ -9,7 +10,8 @@ public class CampCleanup{
     public static void main(String[] args) {
 
         String[] elfPair;
-        int overLapPairs = 0;
+        int completeOverLapPairs = 0;
+        int partialOverlapPairs = 0;
 
 
         try {
@@ -30,12 +32,25 @@ public class CampCleanup{
 
                 //check if either elf overlaps the other completely
                 if(elfpointsOne[0]>=elfpointsTwo[0] && elfpointsOne[1]<=elfpointsTwo[1]) {
-                    overLapPairs++;
-                    System.out.println(Arrays.toString(elfpointsOne) + " - " + Arrays.toString(elfpointsTwo));
+                    completeOverLapPairs++;
                 } else if(elfpointsTwo[0]>=elfpointsOne[0] && elfpointsTwo[1]<=elfpointsOne[1]) {
-                    overLapPairs++;
-                    System.out.println(Arrays.toString(elfpointsOne) + " - " + Arrays.toString(elfpointsTwo));
+                    completeOverLapPairs++;
                 }
+
+
+                //create a new arraylist for one of the elves and check if they have any of the same values
+                ArrayList<Integer> elfRangeOne = new ArrayList<Integer>();
+                for(int i=elfpointsOne[0]; i<=elfpointsOne[1]; i++) {
+                    elfRangeOne.add(i);
+                }
+
+                for(int i=elfpointsTwo[0]; i<=elfpointsTwo[1]; i++) {
+                    if(elfRangeOne.contains(i)) {
+                        partialOverlapPairs++;
+                        break;
+                    }
+                }
+
 
                 //read new line of the input.txt
                 line = br.readLine();
@@ -43,13 +58,12 @@ public class CampCleanup{
             }
 
             System.out.println("Part One Solution:");
-            System.out.println(overLapPairs);
+            System.out.println(completeOverLapPairs);
 
+            System.out.println("Part Two Solution:");
+            System.out.println(partialOverlapPairs);
 
-
-
-
-            
+          
 
 
             br.close();
