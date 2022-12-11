@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import javax.xml.transform.Templates;
+
 import java.io.BufferedReader;
 
 public class SupplyStacks {
@@ -61,6 +64,8 @@ public class SupplyStacks {
         int moveQuantity, moveFrom, moveTo;
         char moveChar;
 
+        LinkedList<Character> tempList = new LinkedList<Character>();
+
 
         String[] instructAra = instructSet.split(" ");
         moveQuantity = Integer.parseInt(instructAra[1]);
@@ -70,12 +75,24 @@ public class SupplyStacks {
 
 
 
-        // move boxes for a given ammount of times
-        for (int i = 0; i < moveQuantity; i++) {
+        // move boxes for a given ammount of times (part one)
+        // for (int i = 0; i < moveQuantity; i++) {
+        //     moveChar = queAra.get(moveFrom).remove();
+        //     queAra.get(moveTo).addFirst(moveChar);
+        // }
+
+        //add all elements in order to a new linkedlist then add them to the given linkedlist
+        for(int i=0; i<moveQuantity; i++) {
             moveChar = queAra.get(moveFrom).remove();
-            queAra.get(moveTo).addFirst(moveChar);
+            tempList.add(moveChar);
+            System.out.println(moveChar);
         }
 
+        for(int i=tempList.size(); i>0; i--) {
+            queAra.get(moveTo).addFirst(tempList.removeLast());
+        }
+
+        System.out.println(tempList);
 
     }
 
