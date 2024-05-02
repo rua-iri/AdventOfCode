@@ -65,7 +65,6 @@ public class Main {
             for (String playerNumber : playerNumbers) {
                 if (playerNumber.equals(winningNumber) && !playerNumber.equals("")) {
                     winCount = winCountIncrementer(winCount);
-                    // System.out.println(playerNumber + " - " + winningNumber);
                 }
             }
         }
