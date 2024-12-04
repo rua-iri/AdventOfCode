@@ -3,6 +3,8 @@
 2. iterate over each line
 3. compare each element to the next element
 4. if the level increases or decreases by an unsafe amount
+5. use counter to measure the number unsafe levels
+6. if unsafe level count is greater than one then report is unsafe
 */
 
 import java.io.BufferedReader;
@@ -10,7 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-public class Main {
+public class Main2 {
 
     public static void main(String[] args) {
         int safeReportCount = 0;
@@ -30,20 +32,28 @@ public class Main {
 
         String[] levelsArray = reportLine.split(" ");
         boolean isLevelsIncreasing = true;
+        int unsafeCounter = 0;
 
         for (int i = 0; i < levelsArray.length - 1; i++) {
             int levelsDifference = Integer.parseInt(levelsArray[i]) - Integer.parseInt(levelsArray[i + 1]);
 
             if (i == 0) {
-                isLevelsIncreasing = levelsDifference > 0;
+                isLevelsIncreasing = levelsDifference >= 0;
             }
 
             int absoluteLevelsDifference = Math.abs(levelsDifference);
+
             if (absoluteLevelsDifference < 1
                     || absoluteLevelsDifference > 3
                     || isLevelsIncreasing != levelsDifference > 0) {
-                return 0;
+                unsafeCounter++;
             }
+        }
+
+        System.out.println(reportLine + ": " + unsafeCounter);
+
+        if (unsafeCounter > 1) {
+            return 0;
         }
 
         return 1;
@@ -69,7 +79,7 @@ public class Main {
             fileReader.close();
 
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println(e.getStackTrace());
         }
 
         System.out.println(reportList.get(0));
