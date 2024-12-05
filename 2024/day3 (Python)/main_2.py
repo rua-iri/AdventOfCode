@@ -57,10 +57,15 @@ def find_instances(input_data: str) -> list:
         do_match = PatternMatch(do_pattern, input_data)
         dont_match = PatternMatch(dont_pattern, input_data)
 
-        print(match_list)
+        # print(match_list)
+        print(is_active)
 
         if mul_match.start_loc == -1:
             break
+
+        # TODO something is going wrong in this if condition
+        # it cuts off with this "don't"
+        # mul(742,92)<(]},select()[%^when()don't()
 
         if (do_match.start_loc < dont_match.start_loc
                 and do_match.start_loc < mul_match.start_loc):
@@ -74,10 +79,10 @@ def find_instances(input_data: str) -> list:
             input_data = input_data[dont_match.end_loc:]
             continue
 
-        elif (is_active
-              and mul_match.start_loc < do_match.start_loc
+        elif (mul_match.start_loc < do_match.start_loc
                 and mul_match.start_loc < dont_match.start_loc):
-            match_list.append(mul_match.get_matching_text())
+            if is_active:
+                match_list.append(mul_match.get_matching_text())
             input_data = input_data[mul_match.end_loc:]
 
     return match_list
